@@ -29,9 +29,9 @@ class OrdersScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          _buildOrderItem(context, '🏔', 'Rincón Andino', 'Hoy, 7:45 PM · 3 productos', 'S/ 88.30', 'Entregado', AppTheme.success, AppTheme.successBg, () => context.push('/past-order/r1')),
-          _buildOrderItem(context, '🌮', 'Taquería del Valle', 'Ayer, 12:30 PM · 2 productos', 'S/ 42.00', 'Entregado', AppTheme.success, AppTheme.successBg, () => context.push('/past-order/r2')),
-          _buildOrderItem(context, '🍣', 'Sakura Sushi', '14 may · 5 productos', 'S/ 135.00', 'Entregado', AppTheme.success, AppTheme.successBg, () => context.push('/past-order/r3')),
+          _buildOrderItem(context, 'assets/Locales/RINCON ANDINO.jpg', 'Rincón Andino', 'Hoy, 7:45 PM · 3 productos', 'S/ 88.30', 'Entregado', AppTheme.success, AppTheme.successBg, () => context.push('/past-order/r1')),
+          _buildOrderItem(context, 'assets/Locales/TAQUERIA DEL VALLE.jpg', 'Taquería del Valle', 'Ayer, 12:30 PM · 2 productos', 'S/ 42.00', 'Entregado', AppTheme.success, AppTheme.successBg, () => context.push('/past-order/r2')),
+          _buildOrderItem(context, 'assets/Locales/SAKURA SUSHI.jpg', 'Sakura Sushi', '14 may · 5 productos', 'S/ 135.00', 'Entregado', AppTheme.success, AppTheme.successBg, () => context.push('/past-order/r3')),
           _buildOrderItem(context, '🍕', 'Pizza House', '10 may · 1 producto', 'S/ 38.00', 'Cancelado', AppTheme.error, AppTheme.errorBg, () => context.push('/past-order/r4')),
         ],
       ),
@@ -58,7 +58,7 @@ class OrdersScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildOrderItem(BuildContext context, String emoji, String name, String date, String price, String status, Color statusColor, Color statusBg, VoidCallback onTap) {
+  Widget _buildOrderItem(BuildContext context, String imagePathOrEmoji, String name, String date, String price, String status, Color statusColor, Color statusBg, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -77,7 +77,17 @@ class OrdersScreen extends StatelessWidget {
                 color: AppTheme.light,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(child: Text(emoji, style: const TextStyle(fontSize: 26))),
+              child: imagePathOrEmoji.startsWith('assets/')
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.asset(
+                        imagePathOrEmoji,
+                        fit: BoxFit.cover,
+                        width: 56,
+                        height: 56,
+                      ),
+                    )
+                  : Center(child: Text(imagePathOrEmoji, style: const TextStyle(fontSize: 26))),
             ),
             const SizedBox(width: 12),
             Expanded(

@@ -227,11 +227,11 @@ class HomeScreen extends ConsumerWidget {
           Row(
             children: [
               Expanded(
-                child: _buildResvCard('🏔', 'Rincón Andino', '8:00 PM'),
+                child: _buildResvCard('assets/Locales/RINCON ANDINO.jpg', 'Rincón Andino', '8:00 PM'),
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: _buildResvCard('🌊', 'La Bahía', '7:30 PM'),
+                child: _buildResvCard('assets/Locales/LA BAHIA MIRAFLORES.jpg', 'La Bahía', '7:30 PM'),
               ),
             ],
           ),
@@ -240,7 +240,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildResvCard(String emoji, String name, String time) {
+  Widget _buildResvCard(String imagePathOrEmoji, String name, String time) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -251,8 +251,18 @@ class HomeScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(emoji, style: const TextStyle(fontSize: 28)),
-          const SizedBox(height: 4),
+          imagePathOrEmoji.startsWith('assets/')
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(
+                    imagePathOrEmoji,
+                    fit: BoxFit.cover,
+                    width: 32,
+                    height: 32,
+                  ),
+                )
+              : Text(imagePathOrEmoji, style: const TextStyle(fontSize: 28)),
+          const SizedBox(height: 8),
           Text(name, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
           Text('Próximo: $time', style: TextStyle(fontSize: 10, color: AppTheme.gray)),
         ],
@@ -336,7 +346,17 @@ class HomeScreen extends ConsumerWidget {
                       color: AppTheme.light,
                       borderRadius: BorderRadius.circular(14),
                     ),
-                    child: Center(child: Text(rest.emoji, style: const TextStyle(fontSize: 28))),
+                    child: rest.imagePath != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(14),
+                            child: Image.asset(
+                              rest.imagePath!,
+                              width: 60,
+                              height: 60,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : Center(child: Text(rest.emoji, style: const TextStyle(fontSize: 28))),
                   ),
                   const SizedBox(width: 12),
                   Expanded(

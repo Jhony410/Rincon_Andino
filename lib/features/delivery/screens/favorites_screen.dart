@@ -18,28 +18,28 @@ class _FavoritesScreenState extends State<FavoritesScreen> with SingleTickerProv
       'name': 'Rincón Andino',
       'category': 'Cocina Andina',
       'rating': 4.8,
-      'image': 'assets/images/restAndino.jpg',
+      'image': 'assets/Locales/RINCON ANDINO.jpg',
     },
     {
       'id': 'r4',
       'name': 'La Bahía Miraflores',
       'category': 'Mariscos',
       'rating': 4.9,
-      'image': 'assets/images/restMar.jpg',
+      'image': 'assets/Locales/LA BAHIA MIRAFLORES.jpg',
     },
     {
       'id': 'r5',
       'name': 'La Parrilla del Chef',
       'category': 'Parrilla',
       'rating': 4.6,
-      'image': 'assets/images/restParrilla.jpg',
+      'image': 'assets/Locales/LA PARRILLA DEL CHEF.jpg',
     },
     {
       'id': 'r3',
       'name': 'Sakura Nikkei',
       'category': 'Nikkei',
       'rating': 4.9,
-      'image': 'assets/images/sushi.jpg',
+      'image': 'assets/Locales/SAKURA SUSHI.jpg',
     },
   ];
 

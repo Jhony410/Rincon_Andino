@@ -28,6 +28,16 @@ class Restaurant {
     required this.menu,
     this.isReservable = false,
   });
+
+  String? get imagePath {
+    final nameClean = name.toLowerCase();
+    if (nameClean.contains('andino')) return 'assets/Locales/RINCON ANDINO.jpg';
+    if (nameClean.contains('valle')) return 'assets/Locales/TAQUERIA DEL VALLE.jpg';
+    if (nameClean.contains('sakura')) return 'assets/Locales/SAKURA SUSHI.jpg';
+    if (nameClean.contains('bahía') || nameClean.contains('bahia')) return 'assets/Locales/LA BAHIA MIRAFLORES.jpg';
+    if (nameClean.contains('parrilla')) return 'assets/Locales/LA PARRILLA DEL CHEF.jpg';
+    return null;
+  }
 }
 
 class ColorGradient {

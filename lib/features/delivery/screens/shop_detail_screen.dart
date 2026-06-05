@@ -47,18 +47,37 @@ class ShopDetailScreen extends ConsumerWidget {
               ),
             ],
             flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(shop.coverGradient.color1), Color(shop.coverGradient.color2)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
-                child: Center(
-                  child: Text(shop.emoji, style: const TextStyle(fontSize: 60)),
-                ),
-              ),
+              background: shop.imagePath != null
+                  ? Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Image.asset(
+                          shop.imagePath!,
+                          fit: BoxFit.cover,
+                        ),
+                        Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [Colors.black54, Colors.transparent],
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Color(shop.coverGradient.color1), Color(shop.coverGradient.color2)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(shop.emoji, style: const TextStyle(fontSize: 60)),
+                      ),
+                    ),
             ),
           ),
           SliverToBoxAdapter(

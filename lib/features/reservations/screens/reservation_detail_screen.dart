@@ -8,6 +8,44 @@ class ReservationDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final resvDetails = {
+      '9901': {
+        'name': 'Rincón Andino',
+        'image': 'assets/Locales/RINCON ANDINO.jpg',
+        'address': 'Av. Larco 1234, Miraflores',
+        'date': 'Hoy, 15 May',
+        'time': '20:00 hrs',
+        'people': '2',
+        'status': 'Confirmada',
+        'statusColor': AppTheme.success,
+        'statusBg': AppTheme.successBg,
+      },
+      '8820': {
+        'name': 'La Bahía Miraflores',
+        'image': 'assets/Locales/LA BAHIA MIRAFLORES.jpg',
+        'address': 'Av. Larco 567, Miraflores',
+        'date': '10 May',
+        'time': '19:30 hrs',
+        'people': '4',
+        'status': 'Completada',
+        'statusColor': AppTheme.gray,
+        'statusBg': AppTheme.light,
+      },
+      '7714': {
+        'name': 'La Parrilla del Chef',
+        'image': 'assets/Locales/LA PARRILLA DEL CHEF.jpg',
+        'address': 'Av. Larco 890, Miraflores',
+        'date': '28 Abr',
+        'time': '21:00 hrs',
+        'people': '2',
+        'status': 'Cancelada',
+        'statusColor': AppTheme.error,
+        'statusBg': AppTheme.errorBg,
+      },
+    };
+
+    final details = resvDetails[resvId] ?? resvDetails['9901']!;
+
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
@@ -45,24 +83,37 @@ class ReservationDetailScreen extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: AppTheme.successBg,
+                      color: details['statusBg'] as Color,
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const Text('Confirmada', style: TextStyle(color: AppTheme.success, fontWeight: FontWeight.bold, fontSize: 12)),
+                    child: Text(
+                      details['status'] as String,
+                      style: TextStyle(color: details['statusColor'] as Color, fontWeight: FontWeight.bold, fontSize: 12),
+                    ),
                   ),
                   const SizedBox(height: 16),
-                  const Text('🏔️', style: TextStyle(fontSize: 48)),
+                  (details['image'] as String).startsWith('assets/')
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.asset(
+                            details['image'] as String,
+                            fit: BoxFit.cover,
+                            width: 64,
+                            height: 64,
+                          ),
+                        )
+                      : Text(details['image'] as String, style: const TextStyle(fontSize: 48)),
                   const SizedBox(height: 8),
-                  const Text('Rincón Andino', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Fraunces')),
+                  Text(details['name'] as String, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Fraunces')),
                   const SizedBox(height: 4),
-                  const Text('Av. Larco 1234, Miraflores', style: TextStyle(fontSize: 13, color: AppTheme.gray)),
+                  Text(details['address'] as String, style: const TextStyle(fontSize: 13, color: AppTheme.gray)),
                   const Divider(height: 48, color: AppTheme.border),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      _buildInfoColumn('📅', 'Fecha', 'Hoy, 15 May'),
-                      _buildInfoColumn('⏰', 'Hora', '20:00 hrs'),
-                      _buildInfoColumn('👥', 'Personas', '2'),
+                      _buildInfoColumn('📅', 'Fecha', details['date'] as String),
+                      _buildInfoColumn('⏰', 'Hora', details['time'] as String),
+                      _buildInfoColumn('👥', 'Personas', details['people'] as String),
                     ],
                   ),
                 ],

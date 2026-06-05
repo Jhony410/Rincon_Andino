@@ -79,15 +79,32 @@ class RestaurantsScreen extends ConsumerWidget {
           children: [
             Container(
               height: 120,
+              width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                gradient: LinearGradient(
-                  colors: [Color(rest.coverGradient.color1), Color(rest.coverGradient.color2)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+                color: AppTheme.light,
               ),
-              child: Center(child: Text(rest.emoji, style: const TextStyle(fontSize: 50))),
+              child: rest.imagePath != null
+                  ? ClipRRect(
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                      child: Image.asset(
+                        rest.imagePath!,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: 120,
+                      ),
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                        gradient: LinearGradient(
+                          colors: [Color(rest.coverGradient.color1), Color(rest.coverGradient.color2)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                      ),
+                      child: Center(child: Text(rest.emoji, style: const TextStyle(fontSize: 50))),
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.all(16),
