@@ -23,7 +23,13 @@ class ShopDetailScreen extends ConsumerWidget {
             leading: Padding(
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
-                onTap: () => context.pop(),
+                onTap: () {
+                  if (context.canPop()) {
+                    context.pop();
+                  } else {
+                    context.go('/home');
+                  }
+                },
                 child: Container(
                   decoration: BoxDecoration(color: Colors.black45, shape: BoxShape.circle),
                   child: const Icon(Icons.arrow_back, color: Colors.white),

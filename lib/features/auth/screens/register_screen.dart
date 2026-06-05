@@ -61,13 +61,19 @@ class RegisterScreen extends StatelessWidget {
                   _buildInputPair('Confirmar contraseña', 'Repite la contraseña', obscure: true),
                   const SizedBox(height: 24),
                   ElevatedButton(
-                    onPressed: () => context.go('/login'),
+                    onPressed: () => context.push('/sms-verify'),
                     child: const Text('Crear cuenta'),
                   ),
                   const SizedBox(height: 16),
                   Center(
                     child: GestureDetector(
-                      onTap: () => context.go('/login'),
+                      onTap: () {
+                        if (context.canPop()) {
+                          context.pop();
+                        } else {
+                          context.go('/login');
+                        }
+                      },
                       child: RichText(
                         text: TextSpan(
                           text: '¿Ya tienes cuenta? ',

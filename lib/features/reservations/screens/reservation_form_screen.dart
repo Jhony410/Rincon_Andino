@@ -21,7 +21,13 @@ class _ReservationFormScreenState extends State<ReservationFormScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/restaurants');
+            }
+          },
         ),
         title: const Text('Reservar Mesa'),
       ),
@@ -145,7 +151,7 @@ class _ReservationFormScreenState extends State<ReservationFormScreen> {
         child: SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: () => context.go('/resv-confirm'),
+            onPressed: () => context.push('/resv-confirm'),
             child: const Text('Confirmar Reserva'),
           ),
         ),

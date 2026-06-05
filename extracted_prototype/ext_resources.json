@@ -1,0 +1,174 @@
+[
+  {
+    "id": "lomo",
+    "uuid": "f70138db-5238-41e4-96e4-50a0d8138417"
+  },
+  {
+    "id": "pizza",
+    "uuid": "aa631d86-ca2c-49c5-ba51-0af43859ba6d"
+  },
+  {
+    "id": "chicha",
+    "uuid": "f6b0a621-84ca-4c19-893c-2508d77bbd7d"
+  },
+  {
+    "id": "postre",
+    "uuid": "89909079-6bc7-4466-a050-362447e1ddb9"
+  },
+  {
+    "id": "ajidegallina",
+    "uuid": "d3b71146-d19c-499b-94c8-17f7fbca5bf5"
+  },
+  {
+    "id": "empanada",
+    "uuid": "d3b71146-d19c-499b-94c8-17f7fbca5bf5"
+  },
+  {
+    "id": "picarones",
+    "uuid": "2d93c2b8-0a5e-445d-a5f9-7a805dd5070f"
+  },
+  {
+    "id": "cuy",
+    "uuid": "7e69bc17-567b-48c3-a974-c809554c0d1a"
+  },
+  {
+    "id": "chicharron",
+    "uuid": "560d1cd1-18fe-4b9c-b470-29862f65ff13"
+  },
+  {
+    "id": "seco",
+    "uuid": "cc96608f-a9e1-4dad-a551-0c63603c73b6"
+  },
+  {
+    "id": "restWarm",
+    "uuid": "584da00d-6be1-4676-9294-12f452d52b06"
+  },
+  {
+    "id": "restAndino",
+    "uuid": "5811e527-84b3-4a35-93d4-c81111b69d42"
+  },
+  {
+    "id": "sushi",
+    "uuid": "ff6f3ead-079b-4595-9574-472f9a06d807"
+  },
+  {
+    "id": "luis",
+    "uuid": "e3a14eaf-9720-4a2d-9476-b51582d4c0a2"
+  },
+  {
+    "id": "restTable",
+    "uuid": "66c9bf14-b70e-4fe4-8bf5-91f889464dcf"
+  },
+  {
+    "id": "tacos",
+    "uuid": "576bd1dd-0ca9-4555-aa26-4d09b6281769"
+  },
+  {
+    "id": "restParrilla",
+    "uuid": "6d8fc60c-9ac9-4ad2-a0c5-1e53968d72fe"
+  },
+  {
+    "id": "veg",
+    "uuid": "3def07b0-cfd5-4814-a7ec-937bb0b601fb"
+  },
+  {
+    "id": "titicaca",
+    "uuid": "270e19ee-95c1-4a82-ae7b-1dc7a2ee0989"
+  },
+  {
+    "id": "restMar",
+    "uuid": "ec16e74d-3097-4521-80ea-4efd8afc2abe"
+  },
+  {
+    "id": "restPatio",
+    "uuid": "907a4a1e-14e6-4aca-9a4a-361e5f0a7edf"
+  },
+  {
+    "id": "restBar",
+    "uuid": "2a97dc89-456f-49cf-b0ca-0b14614da714"
+  },
+  {
+    "id": "machu",
+    "uuid": "42803684-1d91-40fd-896d-0d763603cf15"
+  },
+  {
+    "id": "causa",
+    "uuid": "430c3d26-ac54-4aaa-b5f4-d2a6e9780aab"
+  },
+  {
+    "id": "anticucho",
+    "uuid": "a76ddf23-22c4-43ae-995d-28e1dc503cd8"
+  },
+  {
+    "id": "arroz",
+    "uuid": "97649e40-c19b-449f-afd8-f16e89dfbd77"
+  },
+  {
+    "id": "pisco",
+    "uuid": "efff0c9b-267e-4ab7-acfc-8a3429519a9e"
+  },
+  {
+    "id": "rosa",
+    "uuid": "1c775589-51a8-481f-9d96-e72ffc312d1a"
+  },
+  {
+    "id": "jorge",
+    "uuid": "3b945112-bae5-4508-a672-acd6e6562e4c"
+  },
+  {
+    "id": "sofia",
+    "uuid": "95a71f69-8604-4360-a830-33305ae174cc"
+  },
+  {
+    "id": "restNight",
+    "uuid": "d179fd16-bbc6-4986-8d9c-9b5ca71a461a"
+  },
+  {
+    "id": "salad",
+    "uuid": "79884dc2-2644-4a3c-8f57-5c857fc3f168"
+  },
+  {
+    "id": "soup",
+    "uuid": "f5f79f19-3a6f-49ea-9a1d-57790ac4e409"
+  },
+  {
+    "id": "ana",
+    "uuid": "23b6e0ab-f620-4443-8c11-4b1452e53477"
+  },
+  {
+    "id": "maria",
+    "uuid": "4bf87160-14d9-405c-af10-fcfa3b084e44"
+  },
+  {
+    "id": "restFine",
+    "uuid": "324beebe-93c3-4d8f-89e8-c3a008e5df7a"
+  },
+  {
+    "id": "carlos",
+    "uuid": "ad461696-ce2f-46ba-9011-7e38c0df4255"
+  },
+  {
+    "id": "andes",
+    "uuid": "e2c33bde-b46d-4126-90e3-531b1964158b"
+  },
+  {
+    "id": "cusco",
+    "uuid": "9b75196e-bb7c-4bb0-8991-7f5c91a779ab"
+  },
+  {
+    "id": "juice",
+    "uuid": "6113b4a4-9ff7-4701-831b-80a564e4f34d"
+  },
+  {
+    "id": "rocoto",
+    "uuid": "23e5c593-3981-4cdc-ba0d-7a60e7b3e2e5"
+  },
+  {
+    "id": "trout",
+    "uuid": "68eed55c-edb6-449a-83fb-5aee7a9fff25"
+  },
+  {
+    "id": "ceviche",
+    "uuid": "cd5665b2-0f73-44e2-a067-db3c0cf45bda"
+  }
+]

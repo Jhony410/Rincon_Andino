@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/theme/app_theme.dart';
 
-// Screens imports will go here
+// Auth flow screen imports
 import '../../features/auth/screens/splash_screen.dart';
+import '../../features/auth/screens/onboarding_screen.dart';
 import '../../features/auth/screens/register_screen.dart';
 import '../../features/auth/screens/login_screen.dart';
 import '../../features/auth/screens/sms_verify_screen.dart';
+import '../../features/auth/screens/recover_password_screen.dart';
+
+// Home/Discover flow imports
 import '../../features/home/screens/home_screen.dart';
 import '../../features/home/screens/search_screen.dart';
-import '../../features/delivery/screens/orders_screen.dart';
-import '../../features/profile/screens/profile_screen.dart';
+import '../../features/home/screens/restaurant_map_screen.dart';
+import '../../features/home/screens/notifications_screen.dart';
+import '../../features/home/screens/coupons_screen.dart';
+import '../../features/home/screens/connection_error_screen.dart';
+import '../../features/home/screens/empty_state_screen.dart';
+
+// Delivery flow imports
 import '../../features/delivery/screens/shop_detail_screen.dart';
+import '../../features/delivery/screens/menu_categories_screen.dart';
 import '../../features/delivery/screens/product_detail_screen.dart';
 import '../../features/delivery/screens/cart_screen.dart';
 import '../../features/delivery/screens/address_screen.dart';
@@ -19,19 +31,39 @@ import '../../features/delivery/screens/payment_screen.dart';
 import '../../features/delivery/screens/confirmation_screen.dart';
 import '../../features/delivery/screens/tracking_screen.dart';
 import '../../features/delivery/screens/rating_screen.dart';
+import '../../features/delivery/screens/orders_screen.dart';
+import '../../features/delivery/screens/past_order_detail_screen.dart';
+import '../../features/delivery/screens/favorites_screen.dart';
+
+// Reservations flow imports
 import '../../features/reservations/screens/restaurants_screen.dart';
 import '../../features/reservations/screens/restaurant_detail_screen.dart';
 import '../../features/reservations/screens/reservation_form_screen.dart';
 import '../../features/reservations/screens/reservation_confirmation_screen.dart';
 import '../../features/reservations/screens/reservation_detail_screen.dart';
 import '../../features/reservations/screens/reservation_history_screen.dart';
+import '../../features/reservations/screens/modify_reservation_screen.dart';
+import '../../features/reservations/screens/cancel_reservation_screen.dart';
+
+// Profile flow imports
+import '../../features/profile/screens/profile_screen.dart';
+import '../../features/profile/screens/edit_profile_screen.dart';
+import '../../features/profile/screens/address_list_screen.dart';
+import '../../features/profile/screens/add_address_screen.dart';
+import '../../features/profile/screens/help_support_screen.dart';
+import '../../features/profile/screens/chat_support_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
   routes: [
+    // --- Auth Flow ---
     GoRoute(
       path: '/',
       builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: '/onboarding',
+      builder: (context, state) => const OnboardingScreen(),
     ),
     GoRoute(
       path: '/register',
@@ -45,104 +77,86 @@ final appRouter = GoRouter(
       path: '/sms-verify',
       builder: (context, state) => const SmsVerifyScreen(),
     ),
-    // ShellRoute para el Bottom Navigation Bar
-    ShellRoute(
-      builder: (context, state, child) {
-        return ScaffoldWithNavBar(child: child);
+    GoRoute(
+      path: '/recover-password',
+      builder: (context, state) => const RecoverPasswordScreen(),
+    ),
+
+    // --- Main Shell Route for Bottom Nav ---
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        return ScaffoldWithNavBar(navigationShell: navigationShell);
       },
-      routes: [
-        GoRoute(
-          path: '/home',
-          builder: (context, state) => const HomeScreen(),
+      branches: [
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/home',
+              builder: (context, state) => const HomeScreen(),
+            ),
+          ],
         ),
-        GoRoute(
-          path: '/search',
-          builder: (context, state) => const SearchScreen(),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/search',
+              builder: (context, state) => const SearchScreen(),
+            ),
+          ],
         ),
-        GoRoute(
-          path: '/orders',
-          builder: (context, state) => const OrdersScreen(),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/cart',
+              builder: (context, state) => const CartScreen(),
+            ),
+          ],
         ),
-        GoRoute(
-          path: '/profile',
-          builder: (context, state) => const ProfileScreen(),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/orders',
+              builder: (context, state) => const OrdersScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/profile',
+              builder: (context, state) => const ProfileScreen(),
+            ),
+          ],
         ),
       ],
     ),
-    // Delivery Flow
+
+    // --- Discover & Map Flow ---
     GoRoute(
-      path: '/shop/:id',
-      builder: (context, state) => const PlaceholderScreen(title: 'Detalle Comercio'),
+      path: '/map',
+      builder: (context, state) => const RestaurantMapScreen(),
     ),
     GoRoute(
-      path: '/product/:id',
-      builder: (context, state) => const PlaceholderScreen(title: 'Detalle Producto'),
+      path: '/notifications',
+      builder: (context, state) => const NotificationsScreen(),
     ),
     GoRoute(
-      path: '/cart',
-      builder: (context, state) => const PlaceholderScreen(title: 'Carrito'),
+      path: '/coupons',
+      builder: (context, state) => const CouponsScreen(),
     ),
-    GoRoute(
-      path: '/address',
-      builder: (context, state) => const PlaceholderScreen(title: 'Dirección'),
-    ),
-    GoRoute(
-      path: '/summary',
-      builder: (context, state) => const PlaceholderScreen(title: 'Resumen'),
-    ),
-    GoRoute(
-      path: '/payment',
-      builder: (context, state) => const PlaceholderScreen(title: 'Método Pago'),
-    ),
-    GoRoute(
-      path: '/confirmation',
-      builder: (context, state) => const PlaceholderScreen(title: 'Confirmación'),
-    ),
-    GoRoute(
-      path: '/tracking',
-      builder: (context, state) => const PlaceholderScreen(title: 'Seguimiento'),
-    ),
-    GoRoute(
-      path: '/rating',
-      builder: (context, state) => const PlaceholderScreen(title: 'Calificación'),
-    ),
-    // Reservation Flow
-    GoRoute(
-      path: '/restaurants',
-      builder: (context, state) => const RestaurantsScreen(),
-    ),
-    GoRoute(
-      path: '/restaurant/:id',
-      builder: (context, state) => RestaurantDetailScreen(restaurantId: state.pathParameters['id']!),
-    ),
-    GoRoute(
-      path: '/resv-form',
-      builder: (context, state) => const ReservationFormScreen(),
-    ),
-    GoRoute(
-      path: '/resv-confirm',
-      builder: (context, state) => const ReservationConfirmationScreen(),
-    ),
-    GoRoute(
-      path: '/resv-detail/:id',
-      builder: (context, state) => ReservationDetailScreen(resvId: state.pathParameters['id']!),
-    ),
-    GoRoute(
-      path: '/resv-history',
-      builder: (context, state) => const ReservationHistoryScreen(),
-    ),
-    // Delivery Flow Routes
+
+    // --- Delivery Flow (Details & Checkout) ---
     GoRoute(
       path: '/shop/:id',
       builder: (context, state) => ShopDetailScreen(shopId: state.pathParameters['id']!),
     ),
     GoRoute(
-      path: '/product/:id',
-      builder: (context, state) => ProductDetailScreen(productId: state.pathParameters['id']!),
+      path: '/categories',
+      builder: (context, state) => const MenuCategoriesScreen(),
     ),
     GoRoute(
-      path: '/cart',
-      builder: (context, state) => const CartScreen(),
+      path: '/product/:id',
+      builder: (context, state) => ProductDetailScreen(productId: state.pathParameters['id']!),
     ),
     GoRoute(
       path: '/address',
@@ -168,111 +182,193 @@ final appRouter = GoRouter(
       path: '/rating',
       builder: (context, state) => const RatingScreen(),
     ),
+    GoRoute(
+      path: '/past-order/:id',
+      builder: (context, state) => PastOrderDetailScreen(orderId: state.pathParameters['id']!),
+    ),
+    GoRoute(
+      path: '/favorites',
+      builder: (context, state) => const FavoritesScreen(),
+    ),
+
+    // --- Reservations Flow ---
+    GoRoute(
+      path: '/restaurants',
+      builder: (context, state) => const RestaurantsScreen(),
+    ),
+    GoRoute(
+      path: '/restaurant/:id',
+      builder: (context, state) => RestaurantDetailScreen(restaurantId: state.pathParameters['id']!),
+    ),
+    GoRoute(
+      path: '/resv-form',
+      builder: (context, state) => const ReservationFormScreen(),
+    ),
+    GoRoute(
+      path: '/resv-confirm',
+      builder: (context, state) => const ReservationConfirmationScreen(),
+    ),
+    GoRoute(
+      path: '/resv-detail/:id',
+      builder: (context, state) => ReservationDetailScreen(resvId: state.pathParameters['id']!),
+    ),
+    GoRoute(
+      path: '/resv-history',
+      builder: (context, state) => const ReservationHistoryScreen(),
+    ),
+    GoRoute(
+      path: '/resv-modify/:id',
+      builder: (context, state) => ModifyReservationScreen(reservationId: state.pathParameters['id']!),
+    ),
+    GoRoute(
+      path: '/resv-cancel/:id',
+      builder: (context, state) => CancelReservationScreen(reservationId: state.pathParameters['id']!),
+    ),
+
+    // --- Profile & Custom Account Settings Flow ---
+    GoRoute(
+      path: '/edit-profile',
+      builder: (context, state) => const EditProfileScreen(),
+    ),
+    GoRoute(
+      path: '/profile/addresses',
+      builder: (context, state) => const AddressListScreen(),
+    ),
+    GoRoute(
+      path: '/add-address',
+      builder: (context, state) => const AddAddressScreen(),
+    ),
+    GoRoute(
+      path: '/profile/help',
+      builder: (context, state) => const HelpSupportScreen(),
+    ),
+    GoRoute(
+      path: '/chat',
+      builder: (context, state) => const ChatSupportScreen(),
+    ),
+
+    // --- Technical States / Empty Screens ---
+    GoRoute(
+      path: '/error',
+      builder: (context, state) => const ConnectionErrorScreen(),
+    ),
+    GoRoute(
+      path: '/empty',
+      builder: (context, state) => const EmptyStateScreen(),
+    ),
   ],
 );
 
-// Scaffold Temporal con Bottom NavBar
-class ScaffoldWithNavBar extends StatelessWidget {
+// Custom BottomNavigationBar matching Rincón Andino styling
+class ScaffoldWithNavBar extends StatefulWidget {
   const ScaffoldWithNavBar({
-    required this.child,
+    required this.navigationShell,
     super.key,
   });
 
-  final Widget child;
+  final StatefulNavigationShell navigationShell;
+
+  @override
+  State<ScaffoldWithNavBar> createState() => _ScaffoldWithNavBarState();
+}
+
+class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
+  DateTime? _lastPressedAt;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: child,
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Inicio',
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+
+        final currentIndex = widget.navigationShell.currentIndex;
+        if (currentIndex != 0) {
+          // If not on the Home tab, switch to the Home tab
+          widget.navigationShell.goBranch(0);
+        } else {
+          // If on the Home tab, require double press to exit
+          final now = DateTime.now();
+          if (_lastPressedAt == null ||
+              now.difference(_lastPressedAt!) > const Duration(seconds: 2)) {
+            _lastPressedAt = now;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text(
+                  'Presiona atrás otra vez para salir',
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                ),
+                backgroundColor: AppTheme.text,
+                duration: const Duration(seconds: 2),
+                behavior: SnackBarBehavior.floating,
+                margin: const EdgeInsets.all(16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            );
+          } else {
+            // Exit the app gracefully
+            await SystemNavigator.pop();
+          }
+        }
+      },
+      child: Scaffold(
+        body: widget.navigationShell,
+        bottomNavigationBar: Container(
+          decoration: const BoxDecoration(
+            border: Border(
+              top: BorderSide(color: AppTheme.border, width: 0.8),
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Buscar',
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.white,
+            selectedItemColor: AppTheme.primary,
+            unselectedItemColor: AppTheme.gray,
+            selectedFontSize: 10,
+            unselectedFontSize: 10,
+            selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+            unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined),
+                activeIcon: Icon(Icons.home),
+                label: 'Inicio',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search_outlined),
+                activeIcon: Icon(Icons.search),
+                label: 'Buscar',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart_outlined),
+                activeIcon: Icon(Icons.shopping_cart),
+                label: 'Carrito',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.receipt_long_outlined),
+                activeIcon: Icon(Icons.receipt_long),
+                label: 'Pedidos',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person_outline),
+                activeIcon: Icon(Icons.person),
+                label: 'Perfil',
+              ),
+            ],
+            currentIndex: widget.navigationShell.currentIndex,
+            onTap: (int idx) => _onItemTapped(idx, context),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list_alt),
-            label: 'Pedidos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Perfil',
-          ),
-        ],
-        currentIndex: _calculateSelectedIndex(context),
-        onTap: (int idx) => _onItemTapped(idx, context),
+        ),
       ),
     );
   }
 
-  static int _calculateSelectedIndex(BuildContext context) {
-    final String location = GoRouterState.of(context).uri.toString();
-    if (location.startsWith('/home')) return 0;
-    if (location.startsWith('/search')) return 1;
-    if (location.startsWith('/orders')) return 2;
-    if (location.startsWith('/profile')) return 3;
-    return 0;
-  }
-
   void _onItemTapped(int index, BuildContext context) {
-    switch (index) {
-      case 0:
-        GoRouter.of(context).go('/home');
-        break;
-      case 1:
-        GoRouter.of(context).go('/search');
-        break;
-      case 2:
-        GoRouter.of(context).go('/orders');
-        break;
-      case 3:
-        GoRouter.of(context).go('/profile');
-        break;
-    }
-  }
-}
-
-// Widget Temporal
-class PlaceholderScreen extends StatelessWidget {
-  final String title;
-  const PlaceholderScreen({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Pantalla: $title', style: Theme.of(context).textTheme.headlineMedium),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                if (title == 'Splash Screen') {
-                  context.go('/register');
-                } else if (title == 'Registro') {
-                  context.go('/login');
-                } else if (title == 'Inicio de Sesión') {
-                  context.go('/sms-verify');
-                } else if (title == 'Verificación SMS') {
-                  context.go('/home');
-                } else if (context.canPop()) {
-                  context.pop();
-                } else {
-                  context.go('/home');
-                }
-              },
-              child: const Text('Siguiente / Volver'),
-            )
-          ],
-        ),
-      ),
+    widget.navigationShell.goBranch(
+      index,
+      initialLocation: index == widget.navigationShell.currentIndex,
     );
   }
 }

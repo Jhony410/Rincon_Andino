@@ -12,7 +12,13 @@ class AddressScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/cart');
+            }
+          },
         ),
         title: const Text('¿Dónde entregamos?'),
       ),
@@ -76,7 +82,7 @@ class AddressScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                   ElevatedButton(
-                    onPressed: () => context.go('/summary'),
+                    onPressed: () => context.push('/summary'),
                     child: const Text('Confirmar dirección'),
                   ),
                 ],

@@ -12,7 +12,13 @@ class SummaryScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/address');
+            }
+          },
         ),
         title: const Text('Resumen del Pedido'),
       ),
@@ -27,7 +33,13 @@ class SummaryScreen extends StatelessWidget {
                   emoji: '📍',
                   content: 'Av. Larco 345, Miraflores\nDpto 304, Piso 3',
                   actionText: 'Cambiar',
-                  onAction: () => context.pop(),
+                  onAction: () {
+                    if (context.canPop()) {
+                      context.pop();
+                    } else {
+                      context.go('/address');
+                    }
+                  },
                 ),
                 _buildSection(
                   context,
@@ -78,7 +90,7 @@ class SummaryScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
-            onPressed: () => context.go('/payment'),
+            onPressed: () => context.push('/payment'),
             child: const Text('Continuar al pago →'),
           ),
         ),

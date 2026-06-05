@@ -19,7 +19,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/summary');
+            }
+          },
         ),
         title: const Text('Método de Pago'),
       ),
@@ -118,7 +124,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
-            onPressed: () => context.go('/confirmation'),
+            onPressed: () => context.push('/confirmation'),
             child: const Text('Realizar pedido (S/ 88.30)'),
           ),
         ),

@@ -121,7 +121,7 @@ class SearchScreen extends ConsumerWidget {
 
   Widget _buildResultItem(BuildContext context, dynamic product) {
     return GestureDetector(
-      onTap: () => context.go('/product/${product.id}'),
+      onTap: () => context.push('/product/${product.id}'),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 14),
         decoration: const BoxDecoration(

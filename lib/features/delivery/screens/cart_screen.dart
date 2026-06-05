@@ -12,7 +12,13 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/home');
+            }
+          },
         ),
         title: const Text('Mi Carrito'),
       ),
@@ -97,7 +103,7 @@ class CartScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
-            onPressed: () => context.go('/address'),
+            onPressed: () => context.push('/address'),
             child: const Text('Ir a pagar →'),
           ),
         ),

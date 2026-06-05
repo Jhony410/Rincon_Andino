@@ -57,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () => context.push('/recover-password'),
                       child: const Text(
                         '¿Olvidaste tu contraseña?',
                         style: TextStyle(fontSize: 12),
@@ -66,13 +66,13 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   ElevatedButton(
-                    onPressed: () => context.go('/sms-verify'),
+                    onPressed: () => context.push('/sms-verify'),
                     child: const Text('Ingresar'),
                   ),
                   const SizedBox(height: 16),
                   Center(
                     child: GestureDetector(
-                      onTap: () => context.go('/register'),
+                      onTap: () => context.push('/register'),
                       child: RichText(
                         text: TextSpan(
                           text: '¿No tienes cuenta? ',

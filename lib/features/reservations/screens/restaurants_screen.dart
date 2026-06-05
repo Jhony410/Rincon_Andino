@@ -16,7 +16,13 @@ class RestaurantsScreen extends ConsumerWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/home');
+            }
+          },
         ),
         title: const Text('Reservar Mesa'),
       ),
@@ -58,7 +64,7 @@ class RestaurantsScreen extends ConsumerWidget {
 
   Widget _buildRestaurantCard(BuildContext context, dynamic rest) {
     return GestureDetector(
-      onTap: () => context.go('/restaurant/${rest.id}'),
+      onTap: () => context.push('/restaurant/${rest.id}'),
       child: Container(
         margin: const EdgeInsets.only(bottom: 16),
         decoration: BoxDecoration(

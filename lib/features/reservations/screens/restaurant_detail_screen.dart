@@ -23,7 +23,13 @@ class RestaurantDetailScreen extends ConsumerWidget {
             leading: Padding(
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
-                onTap: () => context.pop(),
+                onTap: () {
+                  if (context.canPop()) {
+                    context.pop();
+                  } else {
+                    context.go('/restaurants');
+                  }
+                },
                 child: Container(
                   decoration: BoxDecoration(color: Colors.black45, shape: BoxShape.circle),
                   child: const Icon(Icons.arrow_back, color: Colors.white),
@@ -102,7 +108,7 @@ class RestaurantDetailScreen extends ConsumerWidget {
         child: SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: () => context.go('/resv-form'),
+            onPressed: () => context.push('/resv-form'),
             child: const Text('Reservar Mesa'),
           ),
         ),

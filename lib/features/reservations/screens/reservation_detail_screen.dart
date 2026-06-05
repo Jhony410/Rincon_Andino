@@ -13,7 +13,13 @@ class ReservationDetailScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/home');
+            }
+          },
         ),
         title: Text('Reserva #$resvId'),
         actions: [
@@ -97,7 +103,7 @@ class ReservationDetailScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () => context.push('/resv-modify/$resvId'),
                     style: OutlinedButton.styleFrom(foregroundColor: AppTheme.text),
                     child: const Text('Modificar'),
                   ),
@@ -105,7 +111,7 @@ class ReservationDetailScreen extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () => context.push('/resv-cancel/$resvId'),
                     style: OutlinedButton.styleFrom(foregroundColor: AppTheme.error, side: const BorderSide(color: AppTheme.error)),
                     child: const Text('Cancelar'),
                   ),

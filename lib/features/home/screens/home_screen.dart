@@ -22,7 +22,7 @@ class HomeScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  _buildDeliverySection(),
+                  _buildDeliverySection(context),
                   const SizedBox(height: 16),
                   _buildReservationsSection(context),
                   const SizedBox(height: 16),
@@ -56,14 +56,52 @@ class HomeScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Text('Buenos días 👋', style: TextStyle(color: Colors.white60, fontSize: 12)),
-              const SizedBox(height: 4),
-              Text(
-                'María García',
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: Colors.white,
-                      fontSize: 22,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Buenas tardes 👋', style: TextStyle(color: Colors.white60, fontSize: 12)),
+                      const SizedBox(height: 4),
+                      Text(
+                        'María García',
+                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                              color: Colors.white,
+                              fontSize: 22,
+                            ),
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: () => context.push('/notifications'),
+                    child: Stack(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: const BoxDecoration(
+                            color: Colors.white12,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(Icons.notifications_none, color: Colors.white, size: 22),
+                        ),
+                        Positioned(
+                          top: 4,
+                          right: 4,
+                          child: Container(
+                            width: 8,
+                            height: 8,
+                            decoration: const BoxDecoration(
+                              color: AppTheme.accent,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
+                ],
               ),
               const SizedBox(height: 8),
               const Row(
@@ -104,59 +142,57 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildDeliverySection() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppTheme.border),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('🛵 Delivery', style: TextStyle(fontFamily: 'Fraunces', fontSize: 16, fontWeight: FontWeight.bold, color: AppTheme.text)),
-                  Text('Pedidos a domicilio', style: TextStyle(fontSize: 12, color: AppTheme.gray)),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildCategoryItem('🍽️', 'Comida', const Color(0xFFfff3e0)),
-              _buildCategoryItem('💊', 'Farmacia', const Color(0xFFe8f5e9)),
-              _buildCategoryItem('🛒', 'Súper', const Color(0xFFe3f2fd)),
-              _buildCategoryItem('🍷', 'Licorería', const Color(0xFFfce4ec)),
-            ],
-          ),
-        ],
-      ),
+  Widget _buildDeliverySection(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _buildQuickTile(context, '🛵', 'Delivery', const Color(0xFFfff3e8), () => context.push('/categories')),
+        _buildQuickTile(context, '🍽️', 'Reservar', const Color(0xFFeaf2ee), () => context.push('/restaurants')),
+        _buildQuickTile(context, '🏷️', 'Ofertas', const Color(0xFFfdf0e0), () => context.push('/coupons')),
+        _buildQuickTile(context, '📍', 'Mapa', const Color(0xFFe9f1fb), () => context.push('/map')),
+      ],
     );
   }
 
-  Widget _buildCategoryItem(String emoji, String label, Color bgColor) {
-    return Column(
-      children: [
-        Container(
-          width: 56,
-          height: 56,
+  Widget _buildQuickTile(BuildContext context, String emoji, String label, Color bgColor, VoidCallback onTap) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 4),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
-            color: bgColor,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppTheme.border),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withAlpha(5),
+                blurRadius: 6,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
-          child: Center(child: Text(emoji, style: const TextStyle(fontSize: 26))),
+          child: Column(
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: bgColor,
+                  shape: BoxShape.circle,
+                ),
+                child: Center(child: Text(emoji, style: const TextStyle(fontSize: 22))),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                label,
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppTheme.text),
+              ),
+            ],
+          ),
         ),
-        const SizedBox(height: 6),
-        Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppTheme.text)),
-      ],
+      ),
     );
   }
 
@@ -182,7 +218,7 @@ class HomeScreen extends ConsumerWidget {
                 ],
               ),
               GestureDetector(
-                onTap: () => context.go('/restaurants'),
+                onTap: () => context.push('/restaurants'),
                 child: Text('Ver todos', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppTheme.primary)),
               ),
             ],
@@ -285,7 +321,7 @@ class HomeScreen extends ConsumerWidget {
         const SizedBox(height: 12),
         ...restaurants.map((rest) {
           return GestureDetector(
-            onTap: () => context.go('/shop/${rest.id}'),
+            onTap: () => context.push('/shop/${rest.id}'),
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: const BoxDecoration(
@@ -331,7 +367,7 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
           );
-        }).toList(),
+        }),
       ],
     );
   }

@@ -12,7 +12,13 @@ class TrackingScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/orders');
+            }
+          },
         ),
         title: const Text('Seguimiento'),
       ),
@@ -121,7 +127,7 @@ class TrackingScreen extends StatelessWidget {
                   const SizedBox(height: 24),
                   Center(
                     child: ElevatedButton(
-                      onPressed: () => context.go('/rating'),
+                      onPressed: () => context.push('/rating'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppTheme.light,
                         foregroundColor: AppTheme.text,

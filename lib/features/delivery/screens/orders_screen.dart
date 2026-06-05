@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_theme.dart';
 
 class OrdersScreen extends StatelessWidget {
@@ -28,10 +29,10 @@ class OrdersScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          _buildOrderItem('🏔', 'Rincón Andino', 'Hoy, 7:45 PM · 3 productos', 'S/ 88.30', 'Entregado', AppTheme.success, AppTheme.successBg),
-          _buildOrderItem('🌮', 'Taquería del Valle', 'Ayer, 12:30 PM · 2 productos', 'S/ 42.00', 'Entregado', AppTheme.success, AppTheme.successBg),
-          _buildOrderItem('🍣', 'Sakura Sushi', '14 may · 5 productos', 'S/ 135.00', 'Entregado', AppTheme.success, AppTheme.successBg),
-          _buildOrderItem('🍕', 'Pizza House', '10 may · 1 producto', 'S/ 38.00', 'Cancelado', AppTheme.error, AppTheme.errorBg),
+          _buildOrderItem(context, '🏔', 'Rincón Andino', 'Hoy, 7:45 PM · 3 productos', 'S/ 88.30', 'Entregado', AppTheme.success, AppTheme.successBg, () => context.push('/past-order/r1')),
+          _buildOrderItem(context, '🌮', 'Taquería del Valle', 'Ayer, 12:30 PM · 2 productos', 'S/ 42.00', 'Entregado', AppTheme.success, AppTheme.successBg, () => context.push('/past-order/r2')),
+          _buildOrderItem(context, '🍣', 'Sakura Sushi', '14 may · 5 productos', 'S/ 135.00', 'Entregado', AppTheme.success, AppTheme.successBg, () => context.push('/past-order/r3')),
+          _buildOrderItem(context, '🍕', 'Pizza House', '10 may · 1 producto', 'S/ 38.00', 'Cancelado', AppTheme.error, AppTheme.errorBg, () => context.push('/past-order/r4')),
         ],
       ),
     );
@@ -57,47 +58,50 @@ class OrdersScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildOrderItem(String emoji, String name, String date, String price, String status, Color statusColor, Color statusBg) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        border: Border(bottom: BorderSide(color: AppTheme.border)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 56,
-            height: 56,
-            decoration: BoxDecoration(
-              color: AppTheme.light,
-              borderRadius: BorderRadius.circular(12),
+  Widget _buildOrderItem(BuildContext context, String emoji, String name, String date, String price, String status, Color statusColor, Color statusBg, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          border: Border(bottom: BorderSide(color: AppTheme.border)),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                color: AppTheme.light,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(child: Text(emoji, style: const TextStyle(fontSize: 26))),
             ),
-            child: Center(child: Text(emoji, style: const TextStyle(fontSize: 26))),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(name, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppTheme.text)),
-                const SizedBox(height: 2),
-                Text(date, style: TextStyle(fontSize: 11, color: AppTheme.gray)),
-                const SizedBox(height: 4),
-                Text(price, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppTheme.primary)),
-              ],
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(name, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppTheme.text)),
+                  const SizedBox(height: 2),
+                  Text(date, style: TextStyle(fontSize: 11, color: AppTheme.gray)),
+                  const SizedBox(height: 4),
+                  Text(price, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppTheme.primary)),
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-            decoration: BoxDecoration(
-              color: statusBg,
-              borderRadius: BorderRadius.circular(20),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              decoration: BoxDecoration(
+                color: statusBg,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(status, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: statusColor)),
             ),
-            child: Text(status, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: statusColor)),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
